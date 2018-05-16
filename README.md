@@ -1,2 +1,2 @@
 # react-basics
-Project base on max's course on udemy
+Project based on max's course on udemy
