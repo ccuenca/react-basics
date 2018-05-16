@@ -1,9 +1,11 @@
+//#region Imports
 import React, {Component} from 'react';
 import './App.css';
 import Person from '../Person/Person';
+//#endregion
 
 class App extends Component{
-
+ 
   state = {
     persons: [
       { name: 'Cristhian', age:'37' },
@@ -13,8 +15,7 @@ class App extends Component{
     showPersons: true
   }
 
-  switchNameHandler = (event) => {
-    //this.state.persons[0].name = 'Sebas';
+  switchNameHandler = (event) => {    
     this.setState({
       persons: [
         { name: 'Sebas', age:'37' },
@@ -25,45 +26,42 @@ class App extends Component{
   }
 
   tooglePersonsHandlers = () => {
-    //const doesShow = this.state.showPersons;
-    //this.setState({ showPersons: !doesShow });
-
-    console.log(this.refs.Test1.Saludar());
-  }
-
-  renderPersons(){
+    const doesShow = this.state.showPersons;
+    this.setState({ showPersons: !doesShow });    
   }
 
   render(){
+
+    let persons = null;
+
+    if( this.state.showPersons ){
+      persons = (
+      <div>
+        <Person 
+          changeName={this.switchNameHandler}
+          name={this.state.persons[0].name} 
+          age={this.state.persons[0].age} />
+
+        <Person 
+          changeName={this.switchNameHandler}
+          name={this.state.persons[1].name} 
+          age={this.state.persons[1].age} />
+
+        <Person
+          changeName={this.switchNameHandler}
+          name={this.state.persons[2].name} 
+          age={this.state.persons[2].age} />
+      </div>
+      );
+    }
+
     return (
         <div className='App'> 
           <h1>My First React App!</h1>
           <button className='btn btn-primary' onClick={this.tooglePersonsHandlers}>Switch Name</button>
           <br/>
           <br/>
-          <Test ref="Test1" />
-
-          {
-            this.state.showPersons === true ?
-            <div>
-              <Person 
-                changeName={this.switchNameHandler}
-                name={this.state.persons[0].name} 
-                age={this.state.persons[0].age} />
-
-              <Person 
-                changeName={this.switchNameHandler}
-                name={this.state.persons[1].name} 
-                age={this.state.persons[1].age} />
-
-              <Person
-                changeName={this.switchNameHandler}
-                name={this.state.persons[2].name} 
-                age={this.state.persons[2].age} />
-            </div>
-            :null
-          }
-          
+          { persons }
         </div>
     );
   }
